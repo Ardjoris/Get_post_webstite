@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        .containerClass {
+            text-align: center;
+            /* color: blue;
+            background-color: rgb(124, 59, 59); */
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div id="header" class="containerClass">
+        <h1> The Klikker </h1>
+        <button type="button" onclick="sendJson(msg.persoon)">Verstuur JSON</button>
+    </div>
+
+
+
+</body>
+
+<script>
+
+   // eerst msg object aanmaken
+   let msg = {
+    "kareltje":11
+};
+    // persoon object gaat in het msg object
+msg.persoon = {
+        "henk": 10,
+        "piet": 11
+    }
+    console.log("persoon",msg.persoon.henk)
+    console.log("persoon",msg.kareltje)
+
+    
+
+function sendJson(postObj) {
+    let post = JSON.stringify(postObj)
+
+    //hier de url van jou .....
+    const url = "192.168.2.3:1992"
+    let xhr = new XMLHttpRequest()
+
+    xhr.open('POST', url, true)
+    xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8')
+    xhr.send(post);
+
+    xhr.onload = function () {
+        if (xhr.status === 201) {
+            console.log("Post successfully created!")
+        } else {console.log("Post mislukt!")}
+    }
+}
+</script>
+
+
+
+</html>
